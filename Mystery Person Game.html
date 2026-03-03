@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystery Person | Be Verb Practice</title>
+    <style>
+        /* --- Color Scheme Implementation --- */
+        :root {
+            /* Midnight Blue Theme (Header/Main Background) */
+            --midnight-bg: #264457;
+            --midnight-text: #FFFFFF;
+            --midnight-accent: #70A1C0;
+            
+            /* Ocean Blue Theme (Card Colors) */
+            --ocean-bg: #70A1C0;
+            --ocean-text: #264457;
+            --ocean-accent: #4A81A4;
+            --ocean-hover: #1A2F3D;
+            
+            /* Slate Stone (Page Background) */
+            --page-bg: #A8B4B5;
+            
+            /* Royal Purple (Accent Elements) */
+            --purple-bg: #CEB5DD;
+            --purple-text: #5E2D79;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--page-bg);
+            color: var(--midnight-text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Header Area */
+        header {
+            background-color: var(--midnight-bg);
+            color: var(--midnight-text);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            color: var(--midnight-accent);
+        }
+
+        /* Main Identity Card */
+        .card {
+            background-color: var(--ocean-bg);
+            color: var(--ocean-text);
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Top Section: Image and Basic Info */
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 2px solid var(--ocean-accent);
+            padding-bottom: 20px;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--midnight-bg);
+            background-color: var(--midnight-bg);
+        }
+
+        .basic-info h2 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .tag {
+            background-color: var(--purple-bg);
+            color: var(--purple-text);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        /* Details Grid */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        @media (min-width: 480px) {
+            .details-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .detail-item {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: var(--midnight-bg);
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* List Items */
+        ul.detail-list {
+            list-style-type: none;
+        }
+        ul.detail-list li::before {
+            content: "• ";
+            color: var(--midnight-bg);
+            font-weight: bold;
+        }
+
+        /* Controls */
+        .controls {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        button {
+            flex: 1;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-next {
+            background-color: var(--midnight-bg);
+            color: var(--midnight-text);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .btn-next:hover {
+            background-color: var(--ocean-hover);
+        }
+
+        .btn-rules {
+            background-color: var(--ocean-bg);
+            color: var(--ocean-text);
+            border: 2px solid var(--ocean-accent);
+        }
+
+        /* Instructions Banner */
+        .instructions {
+            background-color: var(--purple-bg);
+            color: var(--purple-text);
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Mystery Person Generator</h1>
+        <p>Answer with "Yes, I am," "No, I'm not," or full sentences using 'Be'.</p>
+    </header>
+
+    <main class="card" id="personCard">
+        <!-- Content injected by JavaScript -->
+    </main>
+
+    <div class="controls">
+        <button class="btn-next" onclick="generateRandomPerson()">Next Mystery Person ➔</button>
+    </div>
+
+    <div class="instructions">
+        <strong>Partner A:</strong> You are this person. Hide this screen.<br>
+        <strong>Partner B:</strong> Ask "Wh-" questions with 'Be' to guess who they are!
+    </div>
+
+    <script>
+        // Data injected directly to avoid external file loading issues
+        const mysteryPeople = [
+          {
+            "name": "Shakira",
+            "gender": "Female",
+            "dob": "1977-02-02",
+            "isAlive": true,
+            "occupations": ["Singer", "Dancer", "Songwriter"],
+            "birthPlace": "Barranquilla, Colombia",
+            "currentLocation": "Miami, Florida, USA",
+            "nationality": "Colombian",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": ["Gerard Piqué", "Antonio de la Rúa"],
+            "famousFamilyOrFriends": ["Milan Piqué (Son)", "Sasha Piqué (Son)", "Carlos Vives (Friend)"],
+            "notableWork": "Hips Don't Lie",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Shakira_2023.jpg?width=320"
+          },
+          {
+            "name": "Lionel Messi",
+            "gender": "Male",
+            "dob": "1987-06-24",
+            "isAlive": true,
+            "occupations": ["Soccer Player", "Athlete"],
+            "birthPlace": "Rosario, Argentina",
+            "currentLocation": "Miami, Florida, USA",
+            "nationality": "Argentine",
+            "currentlyMarried": true,
+            "currentSpouse": "Antonela Roccuzzo",
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Thiago (Son)", "Mateo (Son)", "Luis Suárez (Friend)"],
+            "notableWork": "Inter Miami CF / Argentina National Team",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lionel-Messi-Argentina-2022-FIFA-World-Cup_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Jennifer Lopez",
+            "gender": "Female",
+            "dob": "1969-07-24",
+            "isAlive": true,
+            "occupations": ["Singer", "Actress", "Dancer"],
+            "birthPlace": "The Bronx, New York, USA",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "American (Puerto Rican descent)",
+            "currentlyMarried": true,
+            "currentSpouse": "Ben Affleck",
+            "isDivorced": true,
+            "formerSpouses": ["Marc Anthony", "Cris Judd", "Ojani Noa"],
+            "famousFamilyOrFriends": ["Max (Son)", "Emme (Daughter)", "Pitbull (Friend)"],
+            "notableWork": "Let's Get Loud",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jennifer_Lopez_at_the_2019_Toronto_International_Film_Festival_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Bad Bunny",
+            "gender": "Male",
+            "dob": "1994-03-10",
+            "isAlive": true,
+            "occupations": ["Singer", "Rapper", "Wrestler"],
+            "birthPlace": "Almirante Sur, Puerto Rico",
+            "currentLocation": "San Juan, Puerto Rico",
+            "nationality": "Puerto Rican",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": ["Kendall Jenner", "Gabriela Berlingeri"],
+            "famousFamilyOrFriends": ["J Balvin (Friend)", "Residente (Friend)"],
+            "notableWork": "Un Verano Sin Ti",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bad_Bunny_2019_by_Glenn_Francis.jpg?width=320"
+          },
+          {
+            "name": "Taylor Swift",
+            "gender": "Female",
+            "dob": "1989-12-13",
+            "isAlive": true,
+            "occupations": ["Singer", "Songwriter", "Director"],
+            "birthPlace": "West Reading, Pennsylvania, USA",
+            "currentLocation": "New York City, New York, USA",
+            "nationality": "American",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": ["Joe Alwyn", "Harry Styles"],
+            "famousFamilyOrFriends": ["Travis Kelce (Boyfriend)", "Selena Gomez (Friend)", "Blake Lively (Friend)"],
+            "notableWork": "The Eras Tour",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_(3).png?width=320"
+          },
+          {
+            "name": "Sofia Vergara",
+            "gender": "Female",
+            "dob": "1972-07-10",
+            "isAlive": true,
+            "occupations": ["Actress", "Model", "TV Judge"],
+            "birthPlace": "Barranquilla, Colombia",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "Colombian and American",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": true,
+            "formerSpouses": ["Joe Manganiello", "Joe Gonzalez"],
+            "famousFamilyOrFriends": ["Manolo Gonzalez Vergara (Son)", "Heidi Klum (Friend)"],
+            "notableWork": "Modern Family",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sofia_Vergara_2019.jpg?width=320"
+          },
+          {
+            "name": "Cristiano Ronaldo",
+            "gender": "Male",
+            "dob": "1985-02-05",
+            "isAlive": true,
+            "occupations": ["Soccer Player", "Athlete"],
+            "birthPlace": "Funchal, Madeira, Portugal",
+            "currentLocation": "Riyadh, Saudi Arabia",
+            "nationality": "Portuguese",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": ["Irina Shayk"],
+            "famousFamilyOrFriends": ["Georgina Rodríguez (Partner)", "Cristiano Jr. (Son)"],
+            "notableWork": "Al Nassr / Portugal National Team",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Cristiano_Ronaldo_2018.jpg?width=320"
+          },
+          {
+            "name": "Selena Quintanilla",
+            "gender": "Female",
+            "dob": "1971-04-16",
+            "isAlive": false,
+            "occupations": ["Singer", "Designer", "Businesswoman"],
+            "birthPlace": "Lake Jackson, Texas, USA",
+            "currentLocation": "Corpus Christi, Texas, USA",
+            "nationality": "American (Mexican descent)",
+            "currentlyMarried": true,
+            "currentSpouse": "Chris Pérez",
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["A.B. Quintanilla (Brother)", "Suzette Quintanilla (Sister)"],
+            "notableWork": "Como La Flor",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Selena_Quintanilla_Perez.jpg?width=320"
+          },
+          {
+            "name": "Pedro Pascal",
+            "gender": "Male",
+            "dob": "1975-04-02",
+            "isAlive": true,
+            "occupations": ["Actor"],
+            "birthPlace": "Santiago, Chile",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "Chilean and American",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Oscar Isaac (Friend)", "Sarah Paulson (Friend)", "Bella Ramsey (Co-star)"],
+            "notableWork": "The Mandalorian / The Last of Us",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Pedro_Pascal_by_Gage_Skidmore.jpg?width=320"
+          },
+          {
+            "name": "Beyoncé",
+            "gender": "Female",
+            "dob": "1981-09-04",
+            "isAlive": true,
+            "occupations": ["Singer", "Businesswoman", "Director"],
+            "birthPlace": "Houston, Texas, USA",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "American",
+            "currentlyMarried": true,
+            "currentSpouse": "Jay-Z",
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Blue Ivy (Daughter)", "Solange Knowles (Sister)", "Kelly Rowland (Friend)"],
+            "notableWork": "Crazy In Love / Renaissance",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Beyonc%C3%A9_at_The_Lion_King_premiere_in_London.jpg?width=320"
+          },
+          {
+            "name": "Marc Anthony",
+            "gender": "Male",
+            "dob": "1968-09-16",
+            "isAlive": true,
+            "occupations": ["Singer", "Actor", "Producer"],
+            "birthPlace": "New York City, New York, USA",
+            "currentLocation": "Miami, Florida, USA",
+            "nationality": "American (Puerto Rican descent)",
+            "currentlyMarried": true,
+            "currentSpouse": "Nadia Ferreira",
+            "isDivorced": true,
+            "formerSpouses": ["Jennifer Lopez", "Shannon De Lima", "Dayanara Torres"],
+            "famousFamilyOrFriends": ["Max (Son)", "Emme (Daughter)", "David Beckham (Friend)"],
+            "notableWork": "Vivir Mi Vida",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Marc_Anthony_2010.jpg?width=320"
+          },
+          {
+            "name": "LeBron James",
+            "gender": "Male",
+            "dob": "1984-12-30",
+            "isAlive": true,
+            "occupations": ["Basketball Player", "Athlete", "Businessman"],
+            "birthPlace": "Akron, Ohio, USA",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "American",
+            "currentlyMarried": true,
+            "currentSpouse": "Savannah James",
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Bronny James (Son)", "Dwyane Wade (Friend)", "Anthony Davis (Teammate)"],
+            "notableWork": "Los Angeles Lakers",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/LeBron_James_1.jpg?width=320"
+          },
+          {
+            "name": "Karol G",
+            "gender": "Female",
+            "dob": "1991-02-14",
+            "isAlive": true,
+            "occupations": ["Singer", "Songwriter"],
+            "birthPlace": "Medellín, Colombia",
+            "currentLocation": "Miami, Florida, USA",
+            "nationality": "Colombian",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": ["Anuel AA"],
+            "famousFamilyOrFriends": ["Feid (Boyfriend)", "Becky G (Friend)", "Shakira (Collaborator)"],
+            "notableWork": "Provenza / TQG",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Karol_G_2019_by_Glenn_Francis.jpg?width=320"
+          },
+          {
+            "name": "Salma Hayek",
+            "gender": "Female",
+            "dob": "1966-09-02",
+            "isAlive": true,
+            "occupations": ["Actress", "Producer"],
+            "birthPlace": "Coatzacoalcos, Mexico",
+            "currentLocation": "London, England, UK",
+            "nationality": "Mexican and American",
+            "currentlyMarried": true,
+            "currentSpouse": "François-Henri Pinault",
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Valentina (Daughter)", "Penélope Cruz (Friend)", "Antonio Banderas (Friend)"],
+            "notableWork": "Frida",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Salma_Hayek_2015.jpg?width=320"
+          },
+          {
+            "name": "Ricky Martin",
+            "gender": "Male",
+            "dob": "1971-12-24",
+            "isAlive": true,
+            "occupations": ["Singer", "Actor", "Author"],
+            "birthPlace": "San Juan, Puerto Rico",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "Puerto Rican",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": true,
+            "formerSpouses": ["Jwan Yosef"],
+            "famousFamilyOrFriends": ["Matteo (Son)", "Valentino (Son)", "Eva Longoria (Friend)"],
+            "notableWork": "Livin' La Vida Loca",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ricky_Martin_2014.jpg?width=320"
+          },
+          {
+            "name": "Selena Gomez",
+            "gender": "Female",
+            "dob": "1992-07-22",
+            "isAlive": true,
+            "occupations": ["Singer", "Actress", "Businesswoman"],
+            "birthPlace": "Grand Prairie, Texas, USA",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "American (Mexican descent)",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": ["Justin Bieber", "The Weeknd"],
+            "famousFamilyOrFriends": ["Benny Blanco (Boyfriend)", "Taylor Swift (Friend)", "Steve Martin (Co-star)"],
+            "notableWork": "Only Murders in the Building / Rare Beauty",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Selena_Gomez_-_Walmart_Soundcheck_Concert.jpg?width=320"
+          },
+          {
+            "name": "Guillermo del Toro",
+            "gender": "Male",
+            "dob": "1964-10-09",
+            "isAlive": true,
+            "occupations": ["Director", "Producer", "Writer"],
+            "birthPlace": "Guadalajara, Mexico",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "Mexican",
+            "currentlyMarried": true,
+            "currentSpouse": "Kim Morgan",
+            "isDivorced": true,
+            "formerSpouses": ["Lorenza Newton"],
+            "famousFamilyOrFriends": ["Alfonso Cuarón (Friend)", "Alejandro G. Iñárritu (Friend)"],
+            "notableWork": "The Shape of Water / Pan's Labyrinth",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Guillermo_del_Toro_by_Gage_Skidmore_2.jpg?width=320"
+          },
+          {
+            "name": "Rosalía",
+            "gender": "Female",
+            "dob": "1992-09-25",
+            "isAlive": true,
+            "occupations": ["Singer", "Songwriter", "Producer"],
+            "birthPlace": "Sant Esteve Sesrovires, Spain",
+            "currentLocation": "Miami, Florida, USA",
+            "nationality": "Spanish",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": ["Rauw Alejandro"],
+            "famousFamilyOrFriends": ["Jeremy Allen White (Boyfriend)", "Kylie Jenner (Friend)", "Tokischa (Friend)"],
+            "notableWork": "Motomami",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Rosalia_2019_(cropped).jpg?width=320"
+          },
+          {
+            "name": "J Balvin",
+            "gender": "Male",
+            "dob": "1985-05-07",
+            "isAlive": true,
+            "occupations": ["Singer", "Rapper"],
+            "birthPlace": "Medellín, Colombia",
+            "currentLocation": "Medellín, Colombia",
+            "nationality": "Colombian",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Valentina Ferrer (Partner)", "Rio (Son)", "Bad Bunny (Friend)"],
+            "notableWork": "Mi Gente",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/J_Balvin_2019_by_Glenn_Francis.jpg?width=320"
+          },
+          {
+            "name": "Zendaya",
+            "gender": "Female",
+            "dob": "1996-09-01",
+            "isAlive": true,
+            "occupations": ["Actress", "Singer", "Model"],
+            "birthPlace": "Oakland, California, USA",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "American",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Tom Holland (Boyfriend)", "Hunter Schafer (Friend)", "Timothée Chalamet (Co-star)"],
+            "notableWork": "Euphoria / Spider-Man",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Zendaya_-_2019_by_Glenn_Francis.jpg?width=320"
+          },
+          {
+            "name": "Justin Bieber",
+            "gender": "Male",
+            "dob": "1994-03-01",
+            "isAlive": true,
+            "occupations": ["Singer", "Songwriter"],
+            "birthPlace": "London, Ontario, Canada",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "Canadian",
+            "currentlyMarried": true,
+            "currentSpouse": "Hailey Bieber",
+            "isDivorced": false,
+            "formerSpouses": ["Selena Gomez"],
+            "famousFamilyOrFriends": ["Usher (Mentor)", "Jaden Smith (Friend)"],
+            "notableWork": "Baby / Sorry",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Justin_Bieber_in_2015.jpg?width=320"
+          },
+          {
+            "name": "Daddy Yankee",
+            "gender": "Male",
+            "dob": "1977-02-03",
+            "isAlive": true,
+            "occupations": ["Singer", "Rapper", "Producer"],
+            "birthPlace": "San Juan, Puerto Rico",
+            "currentLocation": "San Juan, Puerto Rico",
+            "nationality": "Puerto Rican",
+            "currentlyMarried": true,
+            "currentSpouse": "Mireddys González",
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Luis Fonsi (Collaborator)", "Nicky Jam (Friend)"],
+            "notableWork": "Gasolina / Despacito",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Daddy_Yankee_2015_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Thalia",
+            "gender": "Female",
+            "dob": "1971-08-26",
+            "isAlive": true,
+            "occupations": ["Singer", "Actress", "Businesswoman"],
+            "birthPlace": "Mexico City, Mexico",
+            "currentLocation": "New York City, New York, USA",
+            "nationality": "Mexican",
+            "currentlyMarried": true,
+            "currentSpouse": "Tommy Mottola",
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Laura Zapata (Sister)", "Gloria Estefan (Friend)"],
+            "notableWork": "Marimar / Amor a la Mexicana",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Thalia_en_el_2019.jpg?width=320"
+          },
+          {
+            "name": "Rihanna",
+            "gender": "Female",
+            "dob": "1988-02-20",
+            "isAlive": true,
+            "occupations": ["Singer", "Businesswoman", "Actress"],
+            "birthPlace": "Saint Michael, Barbados",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "Barbadian",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": ["Chris Brown", "Drake"],
+            "famousFamilyOrFriends": ["A$AP Rocky (Partner)", "RZA (Son)", "Riot Rose (Son)", "Katy Perry (Friend)"],
+            "notableWork": "Umbrella / Fenty Beauty",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Rihanna_Fenty_2018.png?width=320"
+          },
+          {
+            "name": "Tom Holland",
+            "gender": "Male",
+            "dob": "1996-06-01",
+            "isAlive": true,
+            "occupations": ["Actor"],
+            "birthPlace": "London, England, UK",
+            "currentLocation": "London, England, UK",
+            "nationality": "British",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Zendaya (Girlfriend)", "Robert Downey Jr. (Friend)", "Chris Hemsworth (Co-star)"],
+            "notableWork": "Spider-Man",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tom_Holland_by_Gage_Skidmore.jpg?width=320"
+          },
+          {
+            "name": "Leonardo DiCaprio",
+            "gender": "Male",
+            "dob": "1974-11-11",
+            "isAlive": true,
+            "occupations": ["Actor", "Producer", "Environmentalist"],
+            "birthPlace": "Los Angeles, California, USA",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "American",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": ["Gisele Bündchen", "Camila Morrone"],
+            "famousFamilyOrFriends": ["Kate Winslet (Friend)", "Tobey Maguire (Friend)", "Martin Scorsese (Director)"],
+            "notableWork": "Titanic / The Wolf of Wall Street",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Leonardo_DiCaprio_2014.jpg?width=320"
+          },
+          {
+            "name": "Brad Pitt",
+            "gender": "Male",
+            "dob": "1963-12-18",
+            "isAlive": true,
+            "occupations": ["Actor", "Producer"],
+            "birthPlace": "Shawnee, Oklahoma, USA",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "American",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": true,
+            "formerSpouses": ["Angelina Jolie", "Jennifer Aniston"],
+            "famousFamilyOrFriends": ["George Clooney (Friend)", "Margot Robbie (Co-star)"],
+            "notableWork": "Fight Club / Once Upon a Time in Hollywood",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Brad_Pitt_2019_by_Glenn_Francis.jpg?width=320"
+          },
+          {
+            "name": "Angelina Jolie",
+            "gender": "Female",
+            "dob": "1975-06-04",
+            "isAlive": true,
+            "occupations": ["Actress", "Director", "Humanitarian"],
+            "birthPlace": "Los Angeles, California, USA",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "American",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": true,
+            "formerSpouses": ["Brad Pitt", "Billy Bob Thornton"],
+            "famousFamilyOrFriends": ["Maddox (Son)", "Zahara (Daughter)", "Shiloh (Daughter)"],
+            "notableWork": "Maleficent / Tomb Raider",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Angelina_Jolie_2_June_2014_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Tom Cruise",
+            "gender": "Male",
+            "dob": "1962-07-03",
+            "isAlive": true,
+            "occupations": ["Actor", "Producer"],
+            "birthPlace": "Syracuse, New York, USA",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "American",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": true,
+            "formerSpouses": ["Katie Holmes", "Nicole Kidman", "Mimi Rogers"],
+            "famousFamilyOrFriends": ["Suri (Daughter)", "Simon Pegg (Co-star)"],
+            "notableWork": "Top Gun / Mission: Impossible",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tom_Cruise_by_Gage_Skidmore_2.jpg?width=320"
+          },
+          {
+            "name": "Celia Cruz",
+            "gender": "Female",
+            "dob": "1925-10-21",
+            "isAlive": false,
+            "occupations": ["Singer"],
+            "birthPlace": "Havana, Cuba",
+            "currentLocation": "Fort Lee, New Jersey, USA",
+            "nationality": "Cuban and American",
+            "currentlyMarried": true,
+            "currentSpouse": "Pedro Knight",
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Tito Puente (Friend/Collaborator)", "Gloria Estefan (Friend)"],
+            "notableWork": "La Vida Es Un Carnaval",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Celia_Cruz_(2000).jpg?width=320"
+          },
+          {
+            "name": "Maluma",
+            "gender": "Male",
+            "dob": "1994-01-28",
+            "isAlive": true,
+            "occupations": ["Singer", "Actor"],
+            "birthPlace": "Medellín, Colombia",
+            "currentLocation": "Medellín, Colombia",
+            "nationality": "Colombian",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": ["Natalia Barulich"],
+            "famousFamilyOrFriends": ["Susana Gómez (Partner)", "Paris (Daughter)", "Marc Anthony (Friend)"],
+            "notableWork": "Hawái",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Maluma_en_2018.jpg?width=320"
+          },
+          {
+            "name": "Ed Sheeran",
+            "gender": "Male",
+            "dob": "1991-02-17",
+            "isAlive": true,
+            "occupations": ["Singer", "Songwriter"],
+            "birthPlace": "Halifax, England, UK",
+            "currentLocation": "Suffolk, England, UK",
+            "nationality": "British",
+            "currentlyMarried": true,
+            "currentSpouse": "Cherry Seaborn",
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Taylor Swift (Friend)", "Elton John (Mentor)"],
+            "notableWork": "Shape of You",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ed_Sheeran-6886_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Ariana Grande",
+            "gender": "Female",
+            "dob": "1993-06-26",
+            "isAlive": true,
+            "occupations": ["Singer", "Actress", "Businesswoman"],
+            "birthPlace": "Boca Raton, Florida, USA",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "American",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": true,
+            "formerSpouses": ["Dalton Gomez"],
+            "famousFamilyOrFriends": ["Ethan Slater (Boyfriend)", "Mac Miller (Ex-boyfriend)", "Frankie Grande (Brother)"],
+            "notableWork": "Thank U, Next / Wicked",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ariana_Grande_at_the_2020_Grammy_Awards_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Lady Gaga",
+            "gender": "Female",
+            "dob": "1986-03-28",
+            "isAlive": true,
+            "occupations": ["Singer", "Actress", "Songwriter"],
+            "birthPlace": "New York City, New York, USA",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "American",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": ["Taylor Kinney", "Christian Carino"],
+            "famousFamilyOrFriends": ["Michael Polansky (Partner)", "Tony Bennett (Friend)", "Bradley Cooper (Co-star)"],
+            "notableWork": "Bad Romance / A Star Is Born",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lady_Gaga_at_Joe_Biden's_inauguration_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Will Smith",
+            "gender": "Male",
+            "dob": "1968-09-25",
+            "isAlive": true,
+            "occupations": ["Actor", "Rapper", "Producer"],
+            "birthPlace": "Philadelphia, Pennsylvania, USA",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "American",
+            "currentlyMarried": true,
+            "currentSpouse": "Jada Pinkett Smith",
+            "isDivorced": true,
+            "formerSpouses": ["Sheree Zampino"],
+            "famousFamilyOrFriends": ["Jaden Smith (Son)", "Willow Smith (Daughter)", "Martin Lawrence (Friend)"],
+            "notableWork": "The Fresh Prince of Bel-Air / Men in Black",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/TechCrunch_Disrupt_2019_(48834434641)_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Dwayne Johnson",
+            "gender": "Male",
+            "dob": "1972-05-02",
+            "isAlive": true,
+            "occupations": ["Actor", "Wrestler", "Businessman"],
+            "birthPlace": "Hayward, California, USA",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "American",
+            "currentlyMarried": true,
+            "currentSpouse": "Lauren Hashian",
+            "isDivorced": true,
+            "formerSpouses": ["Dany Garcia"],
+            "famousFamilyOrFriends": ["Kevin Hart (Friend)", "Roman Reigns (Cousin)"],
+            "notableWork": "Jumanji / WWE (The Rock)",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Dwayne_Johnson_2,_2013.jpg?width=320"
+          },
+          {
+            "name": "Billie Eilish",
+            "gender": "Female",
+            "dob": "2001-12-18",
+            "isAlive": true,
+            "occupations": ["Singer", "Songwriter"],
+            "birthPlace": "Los Angeles, California, USA",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "American",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Finneas O'Connell (Brother)", "Justin Bieber (Friend/Idol)"],
+            "notableWork": "Bad Guy",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Billie_Eilish_2019_by_Glenn_Francis_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Chris Hemsworth",
+            "gender": "Male",
+            "dob": "1983-08-11",
+            "isAlive": true,
+            "occupations": ["Actor"],
+            "birthPlace": "Melbourne, Australia",
+            "currentLocation": "Byron Bay, Australia",
+            "nationality": "Australian",
+            "currentlyMarried": true,
+            "currentSpouse": "Elsa Pataky",
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Liam Hemsworth (Brother)", "Luke Hemsworth (Brother)", "Tom Hiddleston (Friend)"],
+            "notableWork": "Thor / The Avengers",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Chris_Hemsworth_by_Gage_Skidmore_2_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Chris Evans",
+            "gender": "Male",
+            "dob": "1981-06-13",
+            "isAlive": true,
+            "occupations": ["Actor"],
+            "birthPlace": "Boston, Massachusetts, USA",
+            "currentLocation": "Boston, Massachusetts, USA",
+            "nationality": "American",
+            "currentlyMarried": true,
+            "currentSpouse": "Alba Baptista",
+            "isDivorced": false,
+            "formerSpouses": ["Jenny Slate"],
+            "famousFamilyOrFriends": ["Scarlett Johansson (Friend)", "Scott Evans (Brother)"],
+            "notableWork": "Captain America / Knives Out",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Chris_Evans_SDCC_2014.jpg?width=320"
+          },
+          {
+            "name": "Scarlett Johansson",
+            "gender": "Female",
+            "dob": "1984-11-22",
+            "isAlive": true,
+            "occupations": ["Actress", "Singer"],
+            "birthPlace": "New York City, New York, USA",
+            "currentLocation": "New York City, New York, USA",
+            "nationality": "American",
+            "currentlyMarried": true,
+            "currentSpouse": "Colin Jost",
+            "isDivorced": true,
+            "formerSpouses": ["Ryan Reynolds", "Romain Dauriac"],
+            "famousFamilyOrFriends": ["Chris Evans (Friend)", "Florence Pugh (Co-star)"],
+            "notableWork": "Black Widow / Marriage Story",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Scarlett_Johansson_by_Gage_Skidmore_2_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Ryan Reynolds",
+            "gender": "Male",
+            "dob": "1976-10-23",
+            "isAlive": true,
+            "occupations": ["Actor", "Producer", "Businessman"],
+            "birthPlace": "Vancouver, Canada",
+            "currentLocation": "New York, USA",
+            "nationality": "Canadian and American",
+            "currentlyMarried": true,
+            "currentSpouse": "Blake Lively",
+            "isDivorced": true,
+            "formerSpouses": ["Scarlett Johansson"],
+            "famousFamilyOrFriends": ["Hugh Jackman (Friend)", "Rob McElhenney (Business Partner)"],
+            "notableWork": "Deadpool",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Deadpool_2_Japan_Premiere_Red_Carpet_Ryan_Reynolds_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Margot Robbie",
+            "gender": "Female",
+            "dob": "1990-07-02",
+            "isAlive": true,
+            "occupations": ["Actress", "Producer"],
+            "birthPlace": "Dalby, Australia",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "Australian",
+            "currentlyMarried": true,
+            "currentSpouse": "Tom Ackerley",
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Ryan Gosling (Co-star)", "Cara Delevingne (Friend)"],
+            "notableWork": "Barbie / Harley Quinn",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Margot_Robbie_at_the_2019_Tribeca_Film_Festival_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Keanu Reeves",
+            "gender": "Male",
+            "dob": "1964-09-02",
+            "isAlive": true,
+            "occupations": ["Actor", "Musician"],
+            "birthPlace": "Beirut, Lebanon",
+            "currentLocation": "Los Angeles, California, USA",
+            "nationality": "Canadian",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": ["Jennifer Syme"],
+            "famousFamilyOrFriends": ["Alexandra Grant (Partner)", "Carrie-Anne Moss (Co-star)", "Winona Ryder (Friend)"],
+            "notableWork": "The Matrix / John Wick",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Keanu_Reeves_2015_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Enrique Iglesias",
+            "gender": "Male",
+            "dob": "1975-05-08",
+            "isAlive": true,
+            "occupations": ["Singer", "Songwriter"],
+            "birthPlace": "Madrid, Spain",
+            "currentLocation": "Miami, Florida, USA",
+            "nationality": "Spanish",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Anna Kournikova (Partner)", "Julio Iglesias (Father)", "Pitbull (Friend)"],
+            "notableWork": "Bailando / Hero",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Enrique_Iglesias_2011,_2.jpg?width=320"
+          },
+          {
+            "name": "Gloria Estefan",
+            "gender": "Female",
+            "dob": "1957-09-01",
+            "isAlive": true,
+            "occupations": ["Singer", "Actress", "Businesswoman"],
+            "birthPlace": "Havana, Cuba",
+            "currentLocation": "Miami, Florida, USA",
+            "nationality": "Cuban and American",
+            "currentlyMarried": true,
+            "currentSpouse": "Emilio Estefan",
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Thalia (Friend)", "Andy Garcia (Friend)"],
+            "notableWork": "Conga / Miami Sound Machine",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gloria_Estefan_in_2013.jpg?width=320"
+          },
+          {
+            "name": "Javier Bardem",
+            "gender": "Male",
+            "dob": "1969-03-01",
+            "isAlive": true,
+            "occupations": ["Actor"],
+            "birthPlace": "Las Palmas, Spain",
+            "currentLocation": "Madrid, Spain",
+            "nationality": "Spanish",
+            "currentlyMarried": true,
+            "currentSpouse": "Penélope Cruz",
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Denis Villeneuve (Director)", "Daniel Craig (Co-star)"],
+            "notableWork": "No Country for Old Men / Skyfall",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Javier_Bardem_2017_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Penélope Cruz",
+            "gender": "Female",
+            "dob": "1974-04-28",
+            "isAlive": true,
+            "occupations": ["Actress", "Model"],
+            "birthPlace": "Alcobendas, Spain",
+            "currentLocation": "Madrid, Spain",
+            "nationality": "Spanish",
+            "currentlyMarried": true,
+            "currentSpouse": "Javier Bardem",
+            "isDivorced": false,
+            "formerSpouses": ["Tom Cruise", "Matthew McConaughey"],
+            "famousFamilyOrFriends": ["Pedro Almodóvar (Director)", "Salma Hayek (Friend)"],
+            "notableWork": "Vicky Cristina Barcelona / Volver",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Pen%C3%A9lope_Cruz_at_the_2019_Goya_Awards.jpg?width=320"
+          },
+          {
+            "name": "Vicente Fernández",
+            "gender": "Male",
+            "dob": "1940-02-17",
+            "isAlive": false,
+            "occupations": ["Singer", "Actor", "Film Producer"],
+            "birthPlace": "Guadalajara, Mexico",
+            "currentLocation": "Guadalajara, Mexico",
+            "nationality": "Mexican",
+            "currentlyMarried": true,
+            "currentSpouse": "María del Refugio Abarca",
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Alejandro Fernández (Son)", "Canelo Álvarez (Friend)"],
+            "notableWork": "El Rey / Volver Volver",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vicente_Fern%C3%A1ndez_(cropped).jpg?width=320"
+          },
+          {
+            "name": "Romeo Santos",
+            "gender": "Male",
+            "dob": "1981-07-21",
+            "isAlive": true,
+            "occupations": ["Singer", "Songwriter", "Record Producer"],
+            "birthPlace": "The Bronx, New York, USA",
+            "currentLocation": "New York, USA",
+            "nationality": "American (Dominican/Puerto Rican descent)",
+            "currentlyMarried": false,
+            "currentSpouse": null,
+            "isDivorced": false,
+            "formerSpouses": [],
+            "famousFamilyOrFriends": ["Francelys Infante (Partner)", "Marc Anthony (Friend)", "Aventura (Bandmates)"],
+            "notableWork": "Propuesta Indecente / Obsesión",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Romeo_Santos_en_concierto.jpg?width=320"
+          },
+          {
+            "name": "Canelo Álvarez",
+            "gender": "Male",
+            "dob": "1990-07-18",
+            "isAlive": true,
+            "occupations": ["Boxer", "Athlete"],
+            "birthPlace": "Guadalajara, Mexico",
+            "currentLocation": "San Diego, California, USA",
+            "nationality": "Mexican",
+            "currentlyMarried": true,
+            "currentSpouse": "Fernanda Gómez",
+            "isDivorced": false,
+            "formerSpouses": ["Marisol González"],
+            "famousFamilyOrFriends": ["J Balvin (Friend)", "Eddy Reynoso (Trainer)"],
+            "notableWork": "Undisputed Super Middleweight Champion",
+            "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Canelo_%C3%81lvarez_in_2017.jpg?width=320"
+          }
+        ];
+
+        let currentIndex = -1;
+
+        // Utility: Calculate Age
+        function calculateAge(dobString, isAlive) {
+            const dob = new Date(dobString);
+            const today = new Date();
+            let age = today.getFullYear() - dob.getFullYear();
+            const m = today.getMonth() - dob.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+            return isAlive ? age : `${age} (Deceased)`;
+        }
+
+        // Utility: Generate Array into UL
+        function createListHTML(arr) {
+            if (!arr || arr.length === 0) return "None";
+            return `<ul class="detail-list">` + arr.map(item => `<li>${item}</li>`).join('') + `</ul>`;
+        }
+
+        // Generate fallback avatar URL if no specific image is provided
+        function getAvatarUrl(name) {
+            // using midnight blue background and white text for fallback avatars
+            return `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=264457&color=ffffff&size=128&font-size=0.4&bold=true`;
+        }
+
+        function renderPerson(person) {
+            const card = document.getElementById('personCard');
+            const ageText = calculateAge(person.dob, person.isAlive);
+            const statusTag = person.isAlive ? "Alive" : "Deceased";
+            const marriageStatus = person.currentlyMarried ? `Yes (to ${person.currentSpouse})` : "No";
+            const divorceStatus = person.isDivorced ? "Yes" : "No";
+            const imageUrl = person.imageUrl || getAvatarUrl(person.name);
+
+            // Generate Occupations Tags
+            const occupationTags = person.occupations.map(job => `<span class="tag">${job}</span>`).join('');
+
+            card.innerHTML = `
+                <div class="card-header">
+                    <img src="${imageUrl}" alt="${person.name}" class="profile-pic" onerror="this.src='${getAvatarUrl(person.name)}'">
+                    <div class="basic-info">
+                        <h2>${person.name}</h2>
+                        <span class="tag bg-dark">${statusTag}</span>
+                        <span class="tag">${person.nationality}</span>
+                        <div style="margin-top: 10px;">${occupationTags}</div>
+                    </div>
+                </div>
+
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">Gender</div>
+                        <div class="detail-value">${person.gender}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Age</div>
+                        <div class="detail-value">${ageText}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Famous Work / Team</div>
+                        <div class="detail-value">${person.notableWork}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Birth Place (Origin)</div>
+                        <div class="detail-value">${person.birthPlace}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Current Location</div>
+                        <div class="detail-value">${person.currentLocation}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Married?</div>
+                        <div class="detail-value">${marriageStatus}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Divorced?</div>
+                        <div class="detail-value">${divorceStatus}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Famous Family & Friends</div>
+                        <div class="detail-value">${createListHTML(person.famousFamilyOrFriends)}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Former Spouses</div>
+                        <div class="detail-value">${createListHTML(person.formerSpouses)}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateRandomPerson() {
+            let nextIndex;
+            // Prevent showing the exact same person twice in a row
+            do {
+                nextIndex = Math.floor(Math.random() * mysteryPeople.length);
+            } while (nextIndex === currentIndex && mysteryPeople.length > 1);
+            
+            currentIndex = nextIndex;
+            renderPerson(mysteryPeople[currentIndex]);
+        }
+
+        // Initialize App (Hardcode Shakira as the practice person)
+        window.onload = () => {
+            const shakiraIndex = mysteryPeople.findIndex(p => p.name === "Shakira");
+            currentIndex = shakiraIndex !== -1 ? shakiraIndex : 0;
+            renderPerson(mysteryPeople[currentIndex]);
+        };
+
+    </script>
+</body>
+</html>
